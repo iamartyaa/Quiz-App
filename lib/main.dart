@@ -1,21 +1,37 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
 
 //void main(){
 //  runApp(const MyApp());
 //}
 
-void main() => runApp(const MyApp());
+void main() => runApp(MyApp());
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+class MyApp extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return MyAppState();
+  }
+}  
+  
+class MyAppState extends State<MyApp>{  
+  
+  var questionIndex=0;
+
+  void answerQuestion()
+  {
+    setState(() {
+      questionIndex+=1;
+    });
+    
+    print('Answer $questionIndex Chosen! ');
+  }
+  
 
   @override
   Widget build(BuildContext context) {
-    void answerQuestion(){
-      print('Answer Chosen!');
-    }
-
-
+    
     List<String> questions = [
       'What\'s your favourite color?',
       'Whats\'s your favourite animal?'
@@ -27,7 +43,7 @@ class MyApp extends StatelessWidget {
         ),
         body: Column(
           children: [
-            const Text('The question!'),
+            Text(questions[questionIndex]),
             ElevatedButton(
               onPressed: answerQuestion,
               child: const Text('Answer 1'),
