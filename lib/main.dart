@@ -3,12 +3,12 @@
 import 'package:flutter/material.dart';
 
 import './question.dart';
-
+import './answer.dart';
 //void main(){
 //  runApp(const MyApp());
 //}
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -17,28 +17,38 @@ class MyApp extends StatefulWidget {
   State<StatefulWidget> createState() {
     return MyAppState();
   }
-}  
-  
-class MyAppState extends State<MyApp>{  
-  
-  var questionIndex=0;
+}
 
-  void answerQuestion()
-  {
+class MyAppState extends State<MyApp> {
+  var questionIndex = 0;
+
+  void answerQuestion() {
     setState(() {
-      questionIndex+=1;
+      questionIndex += 1;
     });
-    
+
     print('Answer $questionIndex Chosen! ');
   }
-  
 
   @override
   Widget build(BuildContext context) {
-    
-    List<String> questions = [
-      'What\'s your favourite color?',
-      'Whats\'s your favourite animal?'
+    var questions = [
+      {
+        'questionText': 'What\'s your favourite color?',
+        'answers': ['Black', 'Red', 'Green', 'White'],
+      },
+      {
+        'questionText': 'What\'s your favourite animal?',
+        'answers': ['Snake', 'Rabbit', 'Tiger', 'Lion'],
+      },
+      {
+        'questionText': 'What\'s your favourite singer?',
+        'answers': ['B', 'R', 'G', 'W'],
+      },
+      {
+        'questionText': 'What\'s your favourite dash?',
+        'answers': ['A', 'B', 'C', 'D'],
+      },
     ];
     return MaterialApp(
       home: Scaffold(
@@ -47,23 +57,10 @@ class MyAppState extends State<MyApp>{
         ),
         body: Column(
           children: [
-            Question(questions[questionIndex]),
-            ElevatedButton(
-              onPressed: answerQuestion,
-              child: const Text('Answer 1'),
-            ),
-            ElevatedButton(
-              onPressed: answerQuestion,
-              child: const Text('Answer 2'),
-            ),
-            ElevatedButton(
-              onPressed: answerQuestion,
-              child: const Text('Answer 3'),
-            ),
-            ElevatedButton(
-              onPressed: answerQuestion,
-              child: const Text('Answer 4'),
-            ),
+            Question(questions[questionIndex]['questionText'] as String),
+            ...(questions[questionIndex]['answers'] as List<String>).map((answer) {
+              return Answer(answerQuestion,answer);
+            }).toList()
           ],
         ),
       ),
