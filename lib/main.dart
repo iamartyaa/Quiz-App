@@ -58,9 +58,12 @@ class MyAppState extends State<MyApp> {
         body: Column(
           children: [
             Question(questions[questionIndex]['questionText'] as String),
-            ...(questions[questionIndex]['answers'] as List<String>).map((answer) {
-              return Answer(answerQuestion,answer);
+            //
+            ...(questions[questionIndex]['answers'] as List<String>)
+                .map((answer) {
+              return Answer(answerQuestion, answer);
             }).toList()
+            //
           ],
         ),
       ),
