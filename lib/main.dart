@@ -50,12 +50,21 @@ class MyAppState extends State<MyApp> {
     },
   ];
   int questionIndex = 0;
-
-  void answerQuestion() {
+  int totalScore=0;
+  
+  void answerQuestion(int score) {
     setState(() {
       questionIndex += 1;
+      totalScore+=score;
     });
     print(questionIndex);
+  }
+
+  void resetQuiz(){
+    setState(() {
+      questionIndex=0;
+      totalScore=0;
+    });
   }
 
   @override
@@ -67,7 +76,7 @@ class MyAppState extends State<MyApp> {
         ),
         body: questionIndex < questions.length
             ? Quiz(answerQuestion, questions, questionIndex)
-            : const Result(),
+            : Result(resetQuiz,totalScore),
       ),
     );
   }
